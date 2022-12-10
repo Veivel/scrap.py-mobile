@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          set-safe-directory: '*'
       - name: Firebase App Distribution
         uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
         with:
