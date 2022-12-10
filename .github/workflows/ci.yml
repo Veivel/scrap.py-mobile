@@ -8,26 +8,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  # This workflow contains a single job called "build"
-  releases:
-    name: release apk
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "11.0"
-      FLUTTER_VERSION: "2.0.0"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - name: Firebase App Distribution
+        uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
         with:
-          distribution: 'zulu'
-          java-version: '11'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-      - run: flutter pub get
-      - run: flutter build apk --release
-      - uses: ncipollo/release-action@v1
-        with:
-         artifacts: "build/app/outputs/flutter-apk/*.apk"
-         token: $
+          app_id: ${{secrets.FIREBASE_APP_ID}}
+          firebase_token: ${{secrets.FIREBASE_TOKEN}}
+          app_file: app-release.apk
